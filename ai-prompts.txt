@@ -1,0 +1,53 @@
+
+
+AI prompts used for my project
+Prompt 1 – Project creation
+Create a Smart Hostel Management System as a web-based application. The system should help hostel administrators manage daily hostel activities digitally. Create a professional, modern and user-friendly dashboard.
+
+
+
+
+Prompt 2 – Dashboard design
+Design a professional hostel management dashboard with a sidebar navigation menu, top navigation bar and summary cards. Include Total Residents, Total Rooms, Fees Pending and Open Maintenance. Add a Recent Residents table. Use a clean blue and white theme.
+
+
+
+
+Prompt 3 – Resident management
+Create a Resident Management module where the administrator can add, edit, delete and search resident details. Include full name, roll number, email, phone number, room number, course and fee status.
+
+
+
+
+Prompt 4 – Room and fee management
+Create Room Management and Fee Management modules. Allow the administrator to add rooms, set room capacity, choose room types such as AC and Non-AC, and track resident fee payments using Paid and Pending statuses.
+
+
+
+
+Prompt 5 – Attendance and visitor management
+Create Attendance Management and Visitor Management modules. Allow administrators to mark attendance as Present, Absent or Leave. Create a visitor registration form with visitor name, phone number, visiting resident and purpose of visit.
+
+
+
+
+Prompt 6 – Maintenance management
+Create a Maintenance Management module where users can submit maintenance requests by entering room number, issue and description. Display maintenance records and allow the administrator to change the status from Open to Resolved.
+
+
+
+
+Prompt 7 – Facility booking
+Create a Facility Booking module where residents can book facilities such as Study Room, Sports Area, Common Hall and Gym. Include date and time selection and display booking records with a cancellation option.
+
+
+
+
+Prompt 8 – Functionality and storage
+Use HTML, CSS and JavaScript to implement all dashboard modules. Make navigation interactive, implement form submissions, search, edit and delete operations, update dashboard statistics automatically and use browser Local Storage to save demo records.
+
+
+
+
+Prompt 9 – Responsive design
+Make the Smart Hostel Management System responsive and user-friendly. Use a professional blue and white color scheme, clean tables, readable fonts, summary cards and a responsive sidebar navigation.

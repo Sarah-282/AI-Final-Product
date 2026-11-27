@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Hostel Management</title>
+<style>
+:root{--navy:#172554;--blue:#3157c8;--bg:#f4f6fb;--text:#182033;--muted:#697386;--line:#e5e9f2;--white:#fff;--green:#16845b;--red:#c24141;--amber:#a76512}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.layout{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{background:var(--navy);color:white;padding:25px 16px;display:flex;flex-direction:column;gap:22px}.brand{font-size:19px;font-weight:750;padding:0 12px}.brand small{display:block;font-size:11px;font-weight:400;color:#bdc9ed;margin-top:5px}.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:#d9e1fa;text-align:left;padding:12px 14px;border-radius:9px;font-size:14px;cursor:pointer}.nav button:hover,.nav button.active{background:#30447f;color:white}.sidebar-foot{margin-top:auto;color:#aebbe0;font-size:12px;padding:10px 12px}
+main{min-width:0}.topbar{height:76px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px}.topbar h1{font-size:21px;margin:0}.date{color:var(--muted);font-size:13px}.content{padding:28px 30px;max-width:1500px;margin:auto}.page{display:none}.page.active{display:block}.welcome{margin:0 0 22px}.welcome p{color:var(--muted);margin:7px 0 0;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:20px 0}.stat,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:19px}.stat span{font-size:13px;color:var(--muted)}.stat strong{display:block;font-size:28px;margin-top:10px}.panel{margin-bottom:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.panel h2{font-size:16px;margin:0}.muted{color:var(--muted);font-size:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}label{font-size:12px;color:#4d586e;font-weight:650}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #dce2ed;border-radius:8px;font:inherit;font-size:13px;background:white;color:var(--text)}input:focus,select:focus,textarea:focus{outline:2px solid #dbe5ff;border-color:var(--blue)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.btn{border:0;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:650;cursor:pointer;background:var(--blue);color:white}.btn.secondary{background:#edf1fb;color:#29448e}.btn.danger{background:#fff0f0;color:var(--red)}.btn.small{padding:7px 10px;font-size:12px}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:13px}th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}td{vertical-align:middle}.pill{display:inline-block;padding:4px 8px;border-radius:30px;font-size:11px;font-weight:700;background:#eaf7f0;color:var(--green)}.pill.pending{background:#fff5e7;color:var(--amber)}.pill.out{background:#fff0f0;color:var(--red)}.empty{text-align:center;color:var(--muted);padding:25px}.search{max-width:260px}.toast{position:fixed;right:22px;bottom:22px;background:#172554;color:white;padding:13px 18px;border-radius:9px;box-shadow:0 8px 30px #15244b30;display:none;z-index:10}.toast.show{display:block}.hint{background:#f0f5ff;border:1px solid #dce7ff;color:#344b83;padding:12px 14px;border-radius:9px;font-size:12px;line-height:1.5;margin-bottom:18px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{padding:14px;gap:12px}.nav{grid-template-columns:repeat(3,1fr)}.nav button{font-size:12px;padding:10px}.sidebar-foot{display:none}.stats{grid-template-columns:repeat(2,1fr)}.content{padding:20px 15px}.topbar{padding:0 16px}}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.nav{grid-template-columns:repeat(2,1fr)}.topbar h1{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand">Smart Hostel <small>RESIDENTIAL MANAGEMENT</small></div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard">▦ Dashboard</button>
+    <button data-page="residents">♙ Residents</button>
+    <button data-page="rooms">▤ Rooms</button>
+    <button data-page="fees">₹ Fees</button>
+    <button data-page="attendance">✓ Attendance</button>
+    <button data-page="visitors">♧ Visitors</button>
+    <button data-page="maintenance">⚒ Maintenance</button>
+    <button data-page="bookings">▣ Facility Bookings</button>
+  </nav>
+  <div class="sidebar-foot">Hostel Admin Panel<br>Local demo storage enabled</div>
+</aside>
+<main>
+<header class="topbar"><h1 id="pageTitle">Hostel Dashboard</h1><div class="date" id="today"></div></header>
+<div class="content">
+<section class="page active" id="dashboard">
+  <div class="welcome"><h2>Welcome to your hostel dashboard</h2><p>Manage residents and daily hostel operations from one place.</p></div>
+  <div class="hint"><b>Demo mode:</b> This dashboard saves entries in this browser using local storage. It works independently of your MongoDB API while that connection issue is being fixed.</div>
+  <div class="stats">
+    <div class="stat"><span>Total Residents</span><strong id="statResidents">0</strong></div>
+    <div class="stat"><span>Total Rooms</span><strong id="statRooms">0</strong></div>
+    <div class="stat"><span>Fees Pending</span><strong id="statPending">0</strong></div>
+    <div class="stat"><span>Open Maintenance</span><strong id="statMaintenance">0</strong></div>
+  </div>
+  <div class="panel"><div class="panel-head"><h2>Recent Residents</h2><button class="btn secondary small" onclick="showPage('residents')">Manage residents</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Room</th><th>Fee status</th></tr></thead><tbody id="recentRows"></tbody></table></div></div>
+</section>
+<section class="page" id="residents">
+  <div class="panel"><div class="panel-head"><h2 id="residentFormTitle">Add Resident</h2><span class="muted">Resident records</span></div>
+  <form id="residentForm"><input type="hidden" id="residentId"><div class="form-grid">
+    <div class="field"><label for="rName">Full name</label><input id="rName" required placeholder="Enter resident name"></div>
+    <div class="field"><label for="rRoll">Roll number</label><input id="rRoll" required placeholder="Enter roll number"></div>
+    <div class="field"><label for="rEmail">Email</label><input id="rEmail" type="email" required placeholder="name@example.com"></div>
+    <div class="field"><label for="rPhone">Phone</label><input id="rPhone" required placeholder="10-digit phone number"></div>
+    <div class="field"><label for="rRoom">Room number</label><input id="rRoom" placeholder="e.g. 101"></div>
+    <div class="field"><label for="rCourse">Course</label><input id="rCourse" required placeholder="e.g. B.Tech"></div>
+    <div class="field"><label for="rFee">Fee status</label><select id="rFee"><option>Pending</option><option>Paid</option></select></div>
+  </div><div class="actions"><button class="btn" type="submit">Save Resident</button><button class="btn secondary" type="button" onclick="resetResidentForm()">Clear</button></div></form></div>
+  <div class="panel"><div class="panel-head"><h2>Resident Records</h2><input class="search" id="residentSearch" placeholder="Search residents..."></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Roll no.</th><th>Email</th><th>Phone</th><th>Room</th><th>Course</th><th>Fee</th><th>Actions</th></tr></thead><tbody id="residentRows"></tbody></table></div></div>
+</section>
+<section class="page" id="rooms">
+  <div class="panel"><div class="panel-head"><h2>Add Room</h2></div><form id="roomForm"><div class="form-grid"><div class="field"><label>Room number</label><input id="roomNumber" required></div><div class="field"><label>Capacity</label><input id="roomCapacity" type="number" min="1" value="2" required></div><div class="field"><label>Room type</label><select id="roomType"><option>Standard</option><option>AC</option><option>Non-AC</option></select></div></div><div class="actions"><button class="btn">Save Room</button></div></form></div>
+  <div class="panel"><h2>Room Records</h2><div class="table-wrap"><table><thead><tr><th>Room</th><th>Capacity</th><th>Type</th><th>Actions</th></tr></thead><tbody id="roomRows"></tbody></table></div></div>
+</section>
+<section class="page" id="fees">
+  <div class="panel"><h2>Fee Management</h2><p class="muted">Update a resident's fee status from the resident form, or use the action below.</p><div class="table-wrap"><table><thead><tr><th>Resident</th><th>Room</th><th>Fee status</th><th>Action</th></tr></thead><tbody id="feeRows"></tbody></table></div></div>
+</section>
+<section class="page" id="attendance">
+  <div class="panel"><h2>Mark Attendance</h2><form id="attendanceForm"><div class="form-grid"><div class="field"><label>Resident</label><select id="attendanceResident" required></select></div><div class="field"><label>Status</label><select id="attendanceStatus"><option>Present</option><option>Absent</option><option>Leave</option></select></div></div><div class="actions"><button class="btn">Save Attendance</button></div></form></div>
+  <div class="panel"><h2>Attendance Records</h2><div class="table-wrap"><table><thead><tr><th>Date</th><th>Resident</th><th>Status</th></tr></thead><tbody id="attendanceRows"></tbody></table></div></div>
+</section>
+<section class="page" id="visitors">
+  <div class="panel"><h2>Register Visitor</h2><form id="visitorForm"><div class="form-grid"><div class="field"><label>Visitor name</label><input id="visitorName" required></div><div class="field"><label>Visiting resident</label><select id="visitorResident" required></select></div><div class="field"><label>Phone</label><input id="visitorPhone" required></div><div class="field"><label>Visit purpose</label><input id="visitorPurpose" required></div></div><div class="actions"><button class="btn">Register Visitor</button></div></form></div>
+  <div class="panel"><h2>Visitor Records</h2><div class="table-wrap"><table><thead><tr><th>Date</th><th>Visitor</th><th>Resident</th><th>Phone</th><th>Purpose</th></tr></thead><tbody id="visitorRows"></tbody></table></div></div>
+</section>
+<section class="page" id="maintenance">
+  <div class="panel"><h2>Submit Maintenance Request</h2><form id="maintenanceForm"><div class="form-grid"><div class="field"><label>Room number</label><input id="maintenanceRoom" required></div><div class="field"><label>Issue</label><input id="maintenanceIssue" required placeholder="e.g. Fan not working"></div><div class="field full"><label>Description</label><textarea id="maintenanceDescription" rows="3"></textarea></div></div><div class="actions"><button class="btn">Submit Request</button></div></form></div>
+  <div class="panel"><h2>Maintenance Records</h2><div class="table-wrap"><table><thead><tr><th>Date</th><th>Room</th><th>Issue</th><th>Description</th><th>Status</th><th>Action</th></tr></thead><tbody id="maintenanceRows"></tbody></table></div></div>
+</section>
+<section class="page" id="bookings">
+  <div class="panel"><h2>Book a Facility</h2><form id="bookingForm"><div class="form-grid"><div class="field"><label>Resident</label><select id="bookingResident" required></select></div><div class="field"><label>Facility</label><select id="bookingFacility"><option>Study Room</option><option>Sports Area</option><option>Common Hall</option><option>Gym</option></select></div><div class="field"><label>Date</label><input id="bookingDate" type="date" required></div><div class="field"><label>Time</label><input id="bookingTime" type="time" required></div></div><div class="actions"><button class="btn">Create Booking</button></div></form></div>
+  <div class="panel"><h2>Facility Bookings</h2><div class="table-wrap"><table><thead><tr><th>Resident</th><th>Facility</th><th>Date</th><th>Time</th><th>Action</th></tr></thead><tbody id="bookingRows"></tbody></table></div></div>
+</section>
+</div></main></div><div class="toast" id="toast"></div>
+<script>
+const keys={residents:"shm_residents",rooms:"shm_rooms",attendance:"shm_attendance",visitors:"shm_visitors",maintenance:"shm_maintenance",bookings:"shm_bookings"};
+const get=k=>JSON.parse(localStorage.getItem(keys[k])||"[]"),save=(k,v)=>localStorage.setItem(keys[k],JSON.stringify(v));
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2400)}
+const pageNames={dashboard:"Hostel Dashboard",residents:"Resident Management",rooms:"Room Management",fees:"Fee Management",attendance:"Attendance Management",visitors:"Visitor Management",maintenance:"Maintenance Requests",bookings:"Facility Bookings"};
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===id));$("pageTitle").textContent=pageNames[id]||"Hostel Dashboard";renderAll()}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+$("today").textContent=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
+function resetResidentForm(){$("residentForm").reset();$("residentId").value="";$("residentFormTitle").textContent="Add Resident"}
+$("residentForm").addEventListener("submit",e=>{e.preventDefault();let a=get("residents"),id=$("residentId").value;let item={id:id||crypto.randomUUID(),name:$("rName").value.trim(),roll:$("rRoll").value.trim(),email:$("rEmail").value.trim(),phone:$("rPhone").value.trim(),room:$("rRoom").value.trim(),course:$("rCourse").value.trim(),fee:$("rFee").value};if(id){a=a.map(x=>x.id===id?item:x);toast("Resident updated")}else{a.push(item);toast("Resident saved on this device")}save("residents",a);resetResidentForm();renderAll()});
+function editResident(id){let x=get("residents").find(x=>x.id===id);if(!x)return;$("residentId").value=x.id;$("rName").value=x.name;$("rRoll").value=x.roll;$("rEmail").value=x.email;$("rPhone").value=x.phone;$("rRoom").value=x.room;$("rCourse").value=x.course;$("rFee").value=x.fee;$("residentFormTitle").textContent="Update Resident";showPage("residents");window.scrollTo(0,0)}
+function deleteResident(id){if(!confirm("Delete this resident?"))return;save("residents",get("residents").filter(x=>x.id!==id));renderAll();toast("Resident deleted")}
+$("residentSearch").addEventListener("input",renderResidents);
+function renderResidents(){let q=$("residentSearch").value.toLowerCase(),a=get("residents").filter(x=>[x.name,x.roll,x.email,x.phone,x.room,x.course].join(" ").toLowerCase().includes(q));$("residentRows").innerHTML=a.length?a.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.roll)}</td><td>${esc(x.email)}</td><td>${esc(x.phone)}</td><td>${esc(x.room||"—")}</td><td>${esc(x.course)}</td><td><span class="pill ${x.fee==="Pending"?"pending":""}">${esc(x.fee)}</span></td><td><button class="btn secondary small" onclick="editResident('${x.id}')">Edit</button> <button class="btn danger small" onclick="deleteResident('${x.id}')">Delete</button></td></tr>`).join(""):`<tr><td colspan="8" class="empty">No residents added yet.</td></tr>`}
+$("roomForm").addEventListener("submit",e=>{e.preventDefault();let a=get("rooms"),n=$("roomNumber").value.trim();if(a.some(x=>x.number===n)){toast("Room already exists");return}a.push({id:crypto.randomUUID(),number:n,capacity:$("roomCapacity").value,type:$("roomType").value});save("rooms",a);e.target.reset();renderAll();toast("Room saved")});
+function deleteRoom(id){save("rooms",get("rooms").filter(x=>x.id!==id));renderAll();toast("Room deleted")}
+function renderRooms(){$("roomRows").innerHTML=get("rooms").map(x=>`<tr><td>${esc(x.number)}</td><td>${esc(x.capacity)}</td><td>${esc(x.type)}</td><td><button class="btn danger small" onclick="deleteRoom('${x.id}')">Delete</button></td></tr>`).join("")||`<tr><td colspan="4" class="empty">No rooms added yet.</td></tr>`}
+function renderFees(){let a=get("residents");$("feeRows").innerHTML=a.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.room||"—")}</td><td><span class="pill ${x.fee==="Pending"?"pending":""}">${esc(x.fee)}</span></td><td><button class="btn secondary small" onclick="toggleFee('${x.id}')">Mark ${x.fee==="Paid"?"Pending":"Paid"}</button></td></tr>`).join("")||`<tr><td colspan="4" class="empty">No resident records.</td></tr>`}
+function toggleFee(id){save("residents",get("residents").map(x=>x.id===id?{...x,fee:x.fee==="Paid"?"Pending":"Paid"}:x));renderAll();toast("Fee status updated")}
+function fillResidentSelects(){let opts=get("residents").map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("");["attendanceResident","visitorResident","bookingResident"].forEach(id=>$(id).innerHTML=opts||'<option value="">Add a resident first</option>')}
+$("attendanceForm").addEventListener("submit",e=>{e.preventDefault();let a=get("attendance");a.unshift({id:crypto.randomUUID(),date:new Date().toLocaleDateString("en-IN"),resident:get("residents").find(x=>x.id===$("attendanceResident").value)?.name||"",status:$("attendanceStatus").value});save("attendance",a);renderAll();toast("Attendance saved")});
+$("visitorForm").addEventListener("submit",e=>{e.preventDefault();let a=get("visitors");a.unshift({id:crypto.randomUUID(),date:new Date().toLocaleDateString("en-IN"),name:$("visitorName").value,resident:get("residents").find(x=>x.id===$("visitorResident").value)?.name||"",phone:$("visitorPhone").value,purpose:$("visitorPurpose").value});save("visitors",a);e.target.reset();renderAll();toast("Visitor registered")});
+$("maintenanceForm").addEventListener("submit",e=>{e.preventDefault();let a=get("maintenance");a.unshift({id:crypto.randomUUID(),date:new Date().toLocaleDateString("en-IN"),room:$("maintenanceRoom").value,issue:$("maintenanceIssue").value,description:$("maintenanceDescription").value,status:"Open"});save("maintenance",a);e.target.reset();renderAll();toast("Maintenance request submitted")});
+function closeMaintenance(id){save("maintenance",get("maintenance").map(x=>x.id===id?{...x,status:"Resolved"}:x));renderAll();toast("Request marked resolved")}
+$("bookingForm").addEventListener("submit",e=>{e.preventDefault();let a=get("bookings");a.unshift({id:crypto.randomUUID(),resident:get("residents").find(x=>x.id===$("bookingResident").value)?.name||"",facility:$("bookingFacility").value,date:$("bookingDate").value,time:$("bookingTime").value});save("bookings",a);e.target.reset();renderAll();toast("Facility booked")});
+function deleteBooking(id){save("bookings",get("bookings").filter(x=>x.id!==id));renderAll();toast("Booking cancelled")}
+function renderAll(){let r=get("residents"),m=get("maintenance");$("statResidents").textContent=r.length;$("statRooms").textContent=get("rooms").length;$("statPending").textContent=r.filter(x=>x.fee==="Pending").length;$("statMaintenance").textContent=m.filter(x=>x.status==="Open").length;$("recentRows").innerHTML=r.slice(-5).reverse().map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.email)}</td><td>${esc(x.room||"—")}</td><td><span class="pill ${x.fee==="Pending"?"pending":""}">${esc(x.fee)}</span></td></tr>`).join("")||`<tr><td colspan="4" class="empty">No residents added yet.</td></tr>`;renderResidents();renderRooms();renderFees();fillResidentSelects();$("attendanceRows").innerHTML=get("attendance").map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.resident)}</td><td>${esc(x.status)}</td></tr>`).join("")||`<tr><td colspan="3" class="empty">No attendance records.</td></tr>`;$("visitorRows").innerHTML=get("visitors").map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.name)}</td><td>${esc(x.resident)}</td><td>${esc(x.phone)}</td><td>${esc(x.purpose)}</td></tr>`).join("")||`<tr><td colspan="5" class="empty">No visitors registered.</td></tr>`;$("maintenanceRows").innerHTML=m.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.room)}</td><td>${esc(x.issue)}</td><td>${esc(x.description)}</td><td><span class="pill ${x.status==="Open"?"pending":""}">${esc(x.status)}</span></td><td>${x.status==="Open"?`<button class="btn secondary small" onclick="closeMaintenance('${x.id}')">Resolve</button>`:"—"}</td></tr>`).join("")||`<tr><td colspan="6" class="empty">No requests submitted.</td></tr>`;$("bookingRows").innerHTML=get("bookings").map(x=>`<tr><td>${esc(x.resident)}</td><td>${esc(x.facility)}</td><td>${esc(x.date)}</td><td>${esc(x.time)}</td><td><button class="btn danger small" onclick="deleteBooking('${x.id}')">Cancel</button></td></tr>`).join("")||`<tr><td colspan="5" class="empty">No bookings yet.</td></tr>`}
+renderAll();
+</script>
+</body>
+</html>
