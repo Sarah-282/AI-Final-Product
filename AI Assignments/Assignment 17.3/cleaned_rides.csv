@@ -1,0 +1,6 @@
+Ride_ID,Pickup_Location,Dropoff_Location,Fare,Driver_Rating,Normalized_Rating
+R001,New York,Brooklyn,25.0,4.8,0.818181818181818
+R002,New York,Queens,23.0,4.2,0.27272727272727293
+R003,Chicago,Evanston,18.5,3.9,0.0
+R004,Los Angeles,Santa Monica,32.0,5.0,1.0
+R005,New York,Brooklyn,21.0,4.0,0.09090909090909098

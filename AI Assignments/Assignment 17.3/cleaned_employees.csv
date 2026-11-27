@@ -1,0 +1,5 @@
+ID,Name,Age,Salary,Department_HR,Department_IT,Department_Sales,Job_Title_data analyst,Job_Title_data scientist,Job_Title_hr manager,Job_Title_unknown,Gender_F,Gender_M,Gender_Unknown
+101,Alice,25,70000,0,1,0,1,0,0,0,1,0,0
+102,Bob,28,60000,1,0,0,0,0,1,0,0,1,0
+103,Robert,31,80000,0,1,0,0,1,0,0,0,1,0
+104,Dan,28,55000,0,0,1,0,0,0,1,0,0,1
